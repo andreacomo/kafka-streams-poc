@@ -1,0 +1,84 @@
+version: '3'
+
+services:
+  postgres:
+    image: postgres:13.4
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: poc
+      POSTGRES_USER: poc_admin
+      POSTGRES_PASSWORD: poc_admin_pwd
+    volumes:
+      - pg_data:/var/lib/postgresql/data
+      - ./db:/docker-entrypoint-initdb.d
+    command:
+      - "postgres"
+      - "-c"
+      - "wal_level=logical"
+
+  zookeeper:
+    image: debezium/zookeeper:1.7
+    ports:
+      - "2181:2181"
+      - "2888:2888"
+      - "3888:3888"
+    volumes:
+      - zookeeper:/zookeeper
+
+  kafka:
+    image: debezium/kafka:1.7
+    ports:
+      - "19092:19092"
+    depends_on:
+      - zookeeper
+    environment:
+      - ZOOKEEPER_CONNECT=zookeeper:2181
+      - KAFKA_ADVERTISED_LISTENERS=INSIDE://:9092,OUTSIDE://localhost:19092
+      - KAFKA_LISTENERS=INSIDE://:9092,OUTSIDE://:19092
+      - KAFKA_LISTENER_SECURITY_PROTOCOL_MAP=INSIDE:PLAINTEXT,OUTSIDE:PLAINTEXT
+      - KAFKA_INTER_BROKER_LISTENER_NAME=INSIDE
+    volumes:
+      - kafka:/kafka
+
+  connect:
+    image: debezium/connect:1.7
+    ports:
+      - "8083:8083"
+    depends_on:
+      - kafka
+      - postgres
+    environment:
+      - BOOTSTRAP_SERVERS=kafka:9092
+      - GROUP_ID=1
+      - CONFIG_STORAGE_TOPIC=deb_connect_configs
+      - OFFSET_STORAGE_TOPIC=deb_connect_offsets
+      - STATUS_STORAGE_TOPIC=deb_connect_statuses
+    volumes:
+      - kafka-connect:/kafka
+
+  kowl:
+    image: quay.io/cloudhut/kowl:master
+    ports:
+      - "9001:8080"
+    environment:
+      - KAFKA_BROKERS=kafka:9092
+      - CONNECT_ENABLED=true
+      - CONNECT_CLUSTERS_NAME=kafka-connect
+      - CONNECT_CLUSTERS_URL=http://connect:8083
+    depends_on:
+      - kafka
+      - connect
+
+  connect-ui:
+    image: landoop/kafka-connect-ui
+    ports:
+      - "9002:8000"
+    environment:
+      - CONNECT_URL=http://connect:8083
+
+volumes:
+  pg_data:
+  zookeeper:
+  kafka:
+  kafka-connect:
