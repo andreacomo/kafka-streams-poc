@@ -25,3 +25,7 @@ database.server.name=postgres
 publication.name=cdc-publication
 publication.autocreate.mode=disabled
 ```
+
+# Refs
+
+https://www.ru-rocker.com/2020/08/11/how-to-join-one-to-many-and-many-to-one-relationship-with-kafka-streams/

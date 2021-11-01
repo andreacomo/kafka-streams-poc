@@ -1,6 +1,9 @@
 package it.codingjam.poc.kafkastreamspoc.listeners
 
 import com.fasterxml.jackson.databind.JsonNode
+import it.codingjam.poc.kafkastreamspoc.configs.Topic.CDC_APPLICATIONS
+import it.codingjam.poc.kafkastreamspoc.configs.Topic.CDC_CREDENTIALS
+import it.codingjam.poc.kafkastreamspoc.configs.Topic.NEW_APPLICATION_TOPIC_TABLED
 import it.codingjam.poc.kafkastreamspoc.listeners.dtos.ApplicationDTO
 import it.codingjam.poc.kafkastreamspoc.listeners.dtos.ApplicationWithCredentialDTO
 import it.codingjam.poc.kafkastreamspoc.listeners.dtos.CredentialDTO
@@ -38,18 +41,18 @@ class ApplicationStreamTabled(val streamsBuilder: StreamsBuilder) {
         val longSerde = Serdes.Long()
         val jacksonSerde = Serdes.serdeFrom(JsonSerializer(), JsonDeserializer())
 
-        val newApplicationTable = streamsBuilder.stream("postgres.public.applications", Consumed.with(jacksonSerde, jacksonSerde))
+        val newApplicationTable = streamsBuilder.stream(CDC_APPLICATIONS, Consumed.with(jacksonSerde, jacksonSerde))
             .filter { _, value -> isCreated(value) }
-            .map { _, value -> KeyValue(getId(value), toApplicationDTO(value)) }
+            .map { _, value -> KeyValue(getId(value), ApplicationDTO.createFrom(value)) }
             .peek { key, value -> logger.info("{} -> {}", key, value) }
             .toTable(Materialized.`as`<Long, ApplicationDTO, KeyValueStore<Bytes, ByteArray>>("NEW-APPLICATION-TABLE")
                 .withKeySerde(longSerde)
                 .withValueSerde(JsonSerde(ApplicationDTO::class.java))
             )
 
-        val newCredentialTable = streamsBuilder.stream("postgres.public.credentials", Consumed.with(jacksonSerde, jacksonSerde))
+        val newCredentialTable = streamsBuilder.stream(CDC_CREDENTIALS, Consumed.with(jacksonSerde, jacksonSerde))
             .filter { _, value -> isCreated(value) }
-            .map { _, value -> KeyValue(getId(value), toCredentialDTO(value)) }
+            .map { _, value -> KeyValue(getId(value), CredentialDTO.createFrom(value)) }
             .peek { key, value -> logger.info("{} -> {}", key, value) }
             .toTable(Materialized.`as`<Long, CredentialDTO, KeyValueStore<Bytes, ByteArray>>("NEW-CREDENTIAL-TABLE")
                 .withKeySerde(longSerde)
@@ -70,28 +73,10 @@ class ApplicationStreamTabled(val streamsBuilder: StreamsBuilder) {
 
         join.toStream()
             .peek { key, value -> logger.info("{} -> {}", key, value) }
-            .to("new.application.tabled", Produced.with(longSerde, JsonSerde(ApplicationWithCredentialDTO::class.java)))
+            .to(NEW_APPLICATION_TOPIC_TABLED, Produced.with(longSerde, JsonSerde(ApplicationWithCredentialDTO::class.java)))
     }
 
     private fun isCreated(value: JsonNode) = value["payload"]["op"].asText() == "c"
-
-    private fun toApplicationDTO(value: JsonNode): ApplicationDTO {
-        val payload = value["payload"]["after"]
-        return ApplicationDTO(
-            payload["id"].asLong(),
-            payload["name"].asText(),
-            payload["credentials_id"].asLong()
-        )
-    }
-
-    private fun toCredentialDTO(value: JsonNode): CredentialDTO {
-        val payload = value["payload"]["after"]
-        return CredentialDTO(
-            payload["id"].asLong(),
-            payload["client_id"].asText(),
-            payload["client_secret"].asText()
-        )
-    }
 
     private fun getId(value: JsonNode): Long = value["payload"]["after"]["id"].asLong()
 
