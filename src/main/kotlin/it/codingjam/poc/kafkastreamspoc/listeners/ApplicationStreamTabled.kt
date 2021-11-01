@@ -31,7 +31,7 @@ import javax.annotation.PostConstruct
  */
 @Component
 @Qualifier("applicationStream")
-@Profile("default")
+@Profile("tabled")
 class ApplicationStreamTabled(val streamsBuilder: StreamsBuilder) {
 
     private val logger = LoggerFactory.getLogger(javaClass)

@@ -31,7 +31,7 @@ import javax.annotation.PostConstruct
  */
 @Component
 @Qualifier("applicationStream")
-@Profile("windowed")
+@Profile("default")
 class ApplicationStreamWindowed(val streamsBuilder: StreamsBuilder) {
 
     private val logger = LoggerFactory.getLogger(javaClass)

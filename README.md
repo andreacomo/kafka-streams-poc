@@ -6,7 +6,7 @@
   * create data
   * stream from Kafka
 
-_**Take care of Kafka Stream cache on local disk on `/private/tmp/kafka-streams`**_
+_**Take care of Kafka Stream cache on local disk on `/private/tmp/kafka-streams`**_ (on a Mac)
 
 # Configure Debezium for PostgreSQL
 
