@@ -6,6 +6,8 @@
   * create data
   * stream from Kafka
 
+_**Take care of Kafka Stream cache on local disk on `/private/tmp/kafka-streams`**_
+
 # Configure Debezium for PostgreSQL
 
 Go to [http://localhost:9002](http://localhost:9002) and create a connection with this parameters:

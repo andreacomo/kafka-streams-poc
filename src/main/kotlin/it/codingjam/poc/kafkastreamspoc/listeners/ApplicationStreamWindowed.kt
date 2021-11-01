@@ -1,29 +1,35 @@
 package it.codingjam.poc.kafkastreamspoc.listeners
 
-//import it.codingjam.poc.kafkastreamspoc.serdes.JsonDeserializer
-//import it.codingjam.poc.kafkastreamspoc.serdes.JsonSerializer
 import com.fasterxml.jackson.databind.JsonNode
 import it.codingjam.poc.kafkastreamspoc.listeners.dtos.ApplicationDTO
 import it.codingjam.poc.kafkastreamspoc.listeners.dtos.ApplicationWithCredentialDTO
 import it.codingjam.poc.kafkastreamspoc.listeners.dtos.CredentialDTO
 import org.apache.kafka.common.serialization.Serdes
-import org.apache.kafka.common.utils.Bytes
 import org.apache.kafka.connect.json.JsonDeserializer
 import org.apache.kafka.connect.json.JsonSerializer
 import org.apache.kafka.streams.KeyValue
 import org.apache.kafka.streams.StreamsBuilder
 import org.apache.kafka.streams.kstream.Consumed
-import org.apache.kafka.streams.kstream.Materialized
+import org.apache.kafka.streams.kstream.JoinWindows
 import org.apache.kafka.streams.kstream.Produced
-import org.apache.kafka.streams.kstream.ValueJoiner
-import org.apache.kafka.streams.state.KeyValueStore
+import org.apache.kafka.streams.kstream.StreamJoined
 import org.slf4j.LoggerFactory
+import org.springframework.beans.factory.annotation.Qualifier
+import org.springframework.context.annotation.Profile
 import org.springframework.kafka.support.serializer.JsonSerde
 import org.springframework.stereotype.Component
+import java.time.Duration
 import javax.annotation.PostConstruct
 
+/**
+ * When changing profile, clean up temp folder (/private/tmp/kafka-streams on Mac)
+ *
+ * Using join between streams in a time window frame
+ */
 @Component
-class ApplicationStream(val streamsBuilder: StreamsBuilder) {
+@Qualifier("applicationStream")
+@Profile("windowed")
+class ApplicationStreamWindowed(val streamsBuilder: StreamsBuilder) {
 
     private val logger = LoggerFactory.getLogger(javaClass)
 
@@ -32,39 +38,35 @@ class ApplicationStream(val streamsBuilder: StreamsBuilder) {
         val longSerde = Serdes.Long()
         val jacksonSerde = Serdes.serdeFrom(JsonSerializer(), JsonDeserializer())
 
-        val newApplicationTable = streamsBuilder.stream("postgres.public.applications", Consumed.with(jacksonSerde, jacksonSerde))
+        val newApplicationStream = streamsBuilder.stream("postgres.public.applications", Consumed.with(jacksonSerde, jacksonSerde))
             .filter { _, value -> isCreated(value) }
-            .map { _, value -> KeyValue(getId(value), toApplicationDTO(value)) }
+            .map { _, value -> KeyValue(getCredentialId(value), toApplicationDTO(value)) }
             .peek { key, value -> logger.info("{} -> {}", key, value) }
-            .toTable(Materialized.`as`<Long, ApplicationDTO, KeyValueStore<Bytes, ByteArray>>("NEW-APPLICATION-TABLE")
-                .withKeySerde(longSerde)
-                .withValueSerde(JsonSerde(ApplicationDTO::class.java))
-            )
 
-        val newCredentialTable = streamsBuilder.stream("postgres.public.credentials", Consumed.with(jacksonSerde, jacksonSerde))
+        val newCredentialStream = streamsBuilder.stream("postgres.public.credentials", Consumed.with(jacksonSerde, jacksonSerde))
             .filter { _, value -> isCreated(value) }
             .map { _, value -> KeyValue(getId(value), toCredentialDTO(value)) }
             .peek { key, value -> logger.info("{} -> {}", key, value) }
-            .toTable(Materialized.`as`<Long, CredentialDTO, KeyValueStore<Bytes, ByteArray>>("NEW-CREDENTIAL-TABLE")
+
+        val join = newApplicationStream.join(
+            newCredentialStream,
+            { app, cred ->
+                ApplicationWithCredentialDTO(
+                    app.id,
+                    app.name,
+                    cred.clientId,
+                    cred.clientSecret
+                )
+            },
+            JoinWindows.of(Duration.ofSeconds(3)),
+            StreamJoined.`as`<Long?, ApplicationDTO?, CredentialDTO?>("JOIN")
                 .withKeySerde(longSerde)
-                .withValueSerde(JsonSerde(CredentialDTO::class.java))
-            )
+                .withValueSerde(JsonSerde(ApplicationDTO::class.java))
+                .withOtherValueSerde(JsonSerde(CredentialDTO::class.java))
+        )
 
-        val join = newApplicationTable.join(
-            newCredentialTable,
-            ApplicationDTO::credentialsId
-        ) { app, cred ->
-            ApplicationWithCredentialDTO(
-                app.id,
-                app.name,
-                cred.clientId,
-                cred.clientSecret
-            )
-        }
-
-        join.toStream()
-            .peek { key, value -> logger.info("{} -> {}", key, value) }
-            .to("new.application", Produced.with(longSerde, JsonSerde(ApplicationWithCredentialDTO::class.java)))
+        join.peek { key, value -> logger.info("{} -> {}", key, value) }
+            .to("new.application.windowed", Produced.with(longSerde, JsonSerde(ApplicationWithCredentialDTO::class.java)))
     }
 
     private fun isCreated(value: JsonNode) = value["payload"]["op"].asText() == "c"
@@ -88,5 +90,7 @@ class ApplicationStream(val streamsBuilder: StreamsBuilder) {
     }
 
     private fun getId(value: JsonNode): Long = value["payload"]["after"]["id"].asLong()
+
+    private fun getCredentialId(value: JsonNode): Long = value["payload"]["after"]["credentials_id"].asLong()
 
 }
