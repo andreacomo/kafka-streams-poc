@@ -8,6 +8,8 @@
 
 _**Take care of Kafka Stream cache on local disk on `/private/tmp/kafka-streams`**_ (on a Mac)
 
+> Messages are consumed by [`kafka-streams-consumer-poc`](https://github.com/andreacomo/kafka-streams-consumer-poc) project
+
 # Configure Debezium for PostgreSQL
 
 Go to [http://localhost:9002](http://localhost:9002) and create a connection with this parameters:
