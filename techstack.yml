@@ -1,0 +1,285 @@
+repo_name: andreacomo/kafka-streams-poc
+report_id: c1520bc3b859a0f5ab107e34d09980ff
+version: 0.1
+repo_type: Public
+timestamp: '2023-12-25T20:39:10+00:00'
+requested_by: andreacomo
+provider: github
+branch: master
+detected_tools_count: 21
+tools:
+- name: Kotlin
+  description: Statically typed Programming Language targeting JVM and JavaScript
+  website_url: https://kotlinlang.org/
+  open_source: true
+  hosted_saas: true
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/3750/pCfEzr6L.png
+  detection_source: Repo Metadata
+- name: SQL
+  description: It is a domain-specific language used in programming
+  website_url: https://en.wikipedia.org/wiki/SQL
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Languages
+  image_url: https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png
+  detection_source: db/init.sql
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: Spring Framework
+  description: An application framework and inversion of control container for the
+    Java platform
+  website_url: https://spring.io/projects/spring-framework
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Languages & Frameworks
+  sub_category: Frameworks (Full Stack)
+  image_url: https://img.stackshare.io/service/2006/spring-framework-project-logo.png
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: Heroku Postgres
+  description: Heroku's Database-as-a-Service. Based on the most powerful open-source
+    database, PostgreSQL
+  website_url: https://www.heroku.com/postgres
+  open_source: false
+  hosted_saas: true
+  category: Data Stores
+  sub_category: PostgreSQL as a Service
+  image_url: https://img.stackshare.io/service/2516/original.png
+  detection_source: docker-compose.yml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: Kafka
+  description: Distributed, fault tolerant, high throughput pub-sub messaging system
+  website_url: http://kafka.apache.org/
+  version: '1.7'
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Message Queue
+  image_url: https://img.stackshare.io/service/1063/kazUJooF_400x400.jpg
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/docker-compose.yml
+  detection_source: docker-compose.yml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: Kafka Streams
+  description: A client library for building applications and microservices
+  website_url: https://kafka.apache.org/documentation/streams/
+  open_source: false
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Stream Processing
+  image_url: https://img.stackshare.io/service/9190/kazUJooF_400x400.jpg
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: Kowl
+  description: An Open Source WebUI for Apache Kafka with a good UI and UX
+  website_url: https://cloudhut.dev/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Kafka Tools
+  image_url: https://img.stackshare.io/service/19821/default_8e224265dfb7592e42c06770be918f9458812f52.png
+  detection_source: docker-compose.yml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: PostgreSQL
+  description: A powerful, open source object-relational database system
+  website_url: http://www.postgresql.org/
+  version: '13.4'
+  open_source: true
+  hosted_saas: false
+  category: Data Stores
+  sub_category: Databases
+  image_url: https://img.stackshare.io/service/1028/ASOhU5xJ.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/docker-compose.yml
+  detection_source: docker-compose.yml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: Git
+  description: Fast, scalable, distributed revision control system
+  website_url: http://git-scm.com/
+  open_source: true
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Version Control System
+  image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source: Repo Metadata
+- name: Zookeeper
+  description: Because coordinating distributed systems is a Zoo
+  website_url: http://zookeeper.apache.org/
+  version: '1.7'
+  open_source: false
+  hosted_saas: false
+  category: Build, Test, Deploy
+  sub_category: Open Source Service Discovery
+  image_url: https://img.stackshare.io/service/1528/apache-zookeeper.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/docker-compose.yml
+  detection_source: docker-compose.yml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: Apache Camel
+  description: A versatile open source integration framework
+  website_url: https://camel.apache.org/
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Application Hosting
+  sub_category: Platform as a Service
+  image_url: https://img.stackshare.io/service/3276/xWt1RFo6_400x400.jpg
+  detection_source: src/main/resources/application.yml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: com.fasterxml.jackson.module:jackson-module-kotlin
+  description: Add-on module for Jackson
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: org.apache.kafka:kafka-streams
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: org.jetbrains.kotlin:kotlin-reflect
+  description: Kotlin Full Reflection Library
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: org.jetbrains.kotlin:kotlin-stdlib-jdk8
+  description: Kotlin Standard Library JDK 8 extension
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: org.postgresql:postgresql
+  description: The PostgreSQL Driver JDBC4
+  version: 42.2.14
+  license: BSD-2-Clause
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+  vulnerabilities:
+  - name: pgjdbc Does Not Check Class Instantiation when providing Plugin Classes
+    cve_id: CVE-2022-21724
+    cve_url: https://github.com/advisories/GHSA-v7wg-cpwc-24m4
+    detected_date: Feb 2
+    severity: high
+    first_patched: 42.2.25
+  - name: PostgreSQL JDBC Driver SQL Injection in ResultSet.refreshRow() with malicious
+      column names
+    cve_id: CVE-2022-31197
+    cve_url: https://github.com/advisories/GHSA-r38f-c4h4-hqq2
+    detected_date: Aug 7
+    severity: high
+    first_patched: 42.2.26
+  - name: pgjdbc Arbitrary File Write Vulnerability
+    cve_id: 
+    cve_url: https://github.com/advisories/GHSA-673j-qm5f-xpv8
+    detected_date: Feb 16
+    severity: moderate
+    first_patched: 42.3.3
+  - name: TemporaryFolder on unix-like systems does not limit access to created files
+    cve_id: CVE-2022-41946
+    cve_url: https://github.com/advisories/GHSA-562r-vg33-8x8h
+    detected_date: Nov 24
+    severity: moderate
+    first_patched: 42.2.27
+  - name: Path traversal in org.postgresql:postgresql
+    cve_id: CVE-2022-26520
+    cve_url: https://github.com/advisories/GHSA-727h-hrw8-jg8q
+    detected_date: Sep 8
+    severity: low
+    first_patched: 42.3.3
+- name: org.projectlombok:lombok
+  description: 'Spice up your java: Automatic Resource Management'
+  license: MIT
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-actuator
+  description: Starter for using Spring Boot's Actuator which provides production
+    ready features to help you monitor and manage your application
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-data-jpa
+  description: Starter for using Spring Data JPA with Hibernate
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-test
+  description: Starter for testing Spring Boot applications with libraries including
+    JUnit
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
+- name: org.springframework.boot:spring-boot-starter-web
+  description: Starter for building web, including RESTful, applications using Spring
+    MVC
+  license: Apache-2.0
+  open_source: true
+  hosted_saas: false
+  category: Libraries
+  sub_category: Maven Packages
+  image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source: pom.xml
+  last_updated_by: andrea.como
+  last_updated_on: 2021-10-31 17:48:08.000000000 Z
