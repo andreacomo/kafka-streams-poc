@@ -2,7 +2,7 @@ repo_name: andreacomo/kafka-streams-poc
 report_id: c1520bc3b859a0f5ab107e34d09980ff
 version: 0.1
 repo_type: Public
-timestamp: '2023-12-25T20:39:10+00:00'
+timestamp: '2024-01-05T08:15:24+00:00'
 requested_by: andreacomo
 provider: github
 branch: master
@@ -16,6 +16,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/3750/pCfEzr6L.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc
   detection_source: Repo Metadata
 - name: SQL
   description: It is a domain-specific language used in programming
@@ -25,6 +26,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Languages
   image_url: https://img.stackshare.io/service/2271/default_068d33483bba6b81ee13fbd4dc7aab9780896a54.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/db/init.sql
   detection_source: db/init.sql
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -38,6 +40,7 @@ tools:
   category: Languages & Frameworks
   sub_category: Frameworks (Full Stack)
   image_url: https://img.stackshare.io/service/2006/spring-framework-project-logo.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
   detection_source: pom.xml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -50,6 +53,7 @@ tools:
   category: Data Stores
   sub_category: PostgreSQL as a Service
   image_url: https://img.stackshare.io/service/2516/original.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/docker-compose.yml
   detection_source: docker-compose.yml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -75,6 +79,7 @@ tools:
   category: Data Stores
   sub_category: Stream Processing
   image_url: https://img.stackshare.io/service/9190/kazUJooF_400x400.jpg
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
   detection_source: pom.xml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -87,6 +92,7 @@ tools:
   category: Data Stores
   sub_category: Kafka Tools
   image_url: https://img.stackshare.io/service/19821/default_8e224265dfb7592e42c06770be918f9458812f52.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/docker-compose.yml
   detection_source: docker-compose.yml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -111,6 +117,7 @@ tools:
   category: Build, Test, Deploy
   sub_category: Version Control System
   image_url: https://img.stackshare.io/service/1046/git.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc
   detection_source: Repo Metadata
 - name: Zookeeper
   description: Because coordinating distributed systems is a Zoo
@@ -134,6 +141,7 @@ tools:
   category: Application Hosting
   sub_category: Platform as a Service
   image_url: https://img.stackshare.io/service/3276/xWt1RFo6_400x400.jpg
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/src/main/resources/application.yml
   detection_source: src/main/resources/application.yml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -145,6 +153,7 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
   detection_source: pom.xml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -155,6 +164,7 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
   detection_source: pom.xml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -166,6 +176,7 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
   detection_source: pom.xml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -177,6 +188,7 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
   detection_source: pom.xml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -233,6 +245,7 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
   detection_source: pom.xml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -245,6 +258,7 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
   detection_source: pom.xml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -256,6 +270,7 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
   detection_source: pom.xml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -268,6 +283,7 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
   detection_source: pom.xml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
@@ -280,6 +296,7 @@ tools:
   category: Libraries
   sub_category: Maven Packages
   image_url: https://img.stackshare.io/package/maven/image.png
+  detection_source_url: https://github.com/andreacomo/kafka-streams-poc/blob/master/pom.xml
   detection_source: pom.xml
   last_updated_by: andrea.como
   last_updated_on: 2021-10-31 17:48:08.000000000 Z
